@@ -4,6 +4,7 @@ using namespace::std;
 class Sodier
 {
 public:
+    Sodier() = default;
     Sodier(string name):m_name(name) {}
     string getname()
     {
@@ -38,7 +39,7 @@ protected:
     Sodier* m_update = nullptr;
 };
 
-class Plus : public AbstractPlus  
+class Plus1 : public AbstractPlus  
 {
 public:
     void ability() override 
@@ -71,11 +72,16 @@ public:
 int main()
 {
     Normal* sodier = new Normal("normal");
-    Plus1* sodier1 = new Plus1();
-    Plus2* sodier2 = new Plus2();
-    Plus3* sodier3 = new Plus3();
+    Plus1* sodier1 = new Plus1;
+    Plus2* sodier2 = new Plus2;
+    Plus3* sodier3 = new Plus3;
     sodier1->enchantment(sodier);
     sodier2->enchantment(sodier1);
     sodier3->enchantment(sodier2);
     sodier3->ability();
 }
+/*
+这个错误是因为 C++ 中，当你继承一个类时，如果基类（如 Sodier）没有默认构造函数（即无参数构造函数），那么派生类的默认构造函数也会被标记为已删除。
+
+在你的代码中，Sodier 类只有一个接受参数的构造函数 Sodier(string name)，而没有无参数的默认构造函数。因此，派生类 Plus1、Plus2 和 Plus3 的默认构造函数被隐式删除了。
+*/
